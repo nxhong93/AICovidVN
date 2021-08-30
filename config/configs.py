@@ -11,7 +11,7 @@ parser.add_argument('--train_file_path',
 parser.add_argument('--test_file_path',
                     default='./data/aicv115m/aicv115m_final_private_test/aicv115m_final_private_test/private_test_audio_files')
 parser.add_argument('--save_path', default='./weights')
-parser.add_argument('--checkpoint', default='./weights/fold0/epoch=36-step=16760.ckpt')
+parser.add_argument('--checkpoint', default='./weights/epoch=36-step=16760.ckpt')
 args = parser.parse_args()
 
 SR = 32000
