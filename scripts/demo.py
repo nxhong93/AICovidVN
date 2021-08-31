@@ -4,7 +4,6 @@ import pandas as pd
 import argparse
 import os
 from joblib import Parallel, delayed
-from tqdm import tqdm
 from config.configs import *
 from scripts.utils import *
 from scripts.engineer import *
@@ -23,9 +22,8 @@ if __name__ == '__main__':
     list_file = [i.split('.')[0] for i in os.listdir(demo_args.list_file)]
     list_path = [os.path.join(demo_args.list_file, i) for i in os.listdir(demo_args.list_file)]
     demo_df = pd.DataFrame({'uuid': list_file, 'file_path': list_path})
-    demo_df['start'] = Parallel(n_jobs=-1, backend='multiprocessing')(delayed(startClean)(path) for path in tqdm(demo_df.file_path, total=len(demo_df)))
-    demo_df['end'] = Parallel(n_jobs=-1, backend='multiprocessing')(delayed(endClean)(path) for path in tqdm(demo_df.file_path, total=len(demo_df)))
-    print(100 * '-')
+    demo_df['start'] = Parallel(n_jobs=-1, backend='multiprocessing')(delayed(startClean)(path) for path in demo_df.file_path)
+    demo_df['end'] = Parallel(n_jobs=-1, backend='multiprocessing')(delayed(endClean)(path) for path in demo_df.file_path)
 
     model = covidNet.load_from_checkpoint(checkpoint_path=args.checkpoint, config=TrainConfig,
                                           meta_col=meta_cols, df=train_df, test_df=demo_df,

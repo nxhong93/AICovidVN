@@ -2,6 +2,10 @@ import argparse
 from torch.optim.lr_scheduler import CosineAnnealingLR
 
 parser = argparse.ArgumentParser(description='Training Config', add_help=False)
+parser.add_argument('--train_origin_csv', default='./train/train.csv')
+parser.add_argument('--train_origin', default='./train/train_folder/')
+parser.add_argument('--test_origin', default='./demo_data/')
+
 parser.add_argument('--train_csv', default='./data/train_clean.csv')
 parser.add_argument('--test_csv', default='./data/test_clean.csv')
 parser.add_argument('--train_warm_path',
@@ -16,6 +20,7 @@ args = parser.parse_args()
 
 SR = 32000
 FOLD = 5
+SEED = 97
 list_age = ['group_0_2', 'group_3_5', 'group_6_13', 'group_14_18', 'group_19_33',
             'group_34_48', 'group_49_64', 'group_65_78', 'group_79_98']
 meta_cols = ['gender', 'group_0_2', 'group_3_5', 'group_6_13', 'group_14_18',
